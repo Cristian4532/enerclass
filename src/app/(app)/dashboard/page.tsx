@@ -70,9 +70,9 @@ export default function DashboardPage() {
   return (
     <div className="animate-fade-up">
       <PageHeader
-        eyebrow="Panel de control · Tiempo real"
-        title="Dashboard energético"
-        description="Monitoreo del consumo eléctrico de los cuatro tableros generales de la I.E. N° 2001 «Leoncio Prado». Datos en vivo, ahorro y alertas en una sola vista."
+        eyebrow="Inicio · Consumo del periodo"
+        title="Panel principal"
+        description="Consumo de los cuatro tableros de la I.E. N° 2001 «Leoncio Prado», con lecturas en vivo, gasto acumulado y alertas del periodo."
         icon={<Zap className="h-5 w-5" />}
         actions={
           <>
@@ -109,8 +109,8 @@ export default function DashboardPage() {
       <div className="mt-5 grid gap-5 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2">
           <CardHeader
-            title="Flujo eléctrico en tiempo real"
-            description={`Demanda promedio por área · ${data.periodLabel}`}
+            title="Demanda eléctrica en tiempo real"
+            description={`Potencia promedio por tablero · ${data.periodLabel}`}
             icon={<Activity className="h-4 w-4" />}
             action={
               <div className="flex rounded-lg border border-slate-200 bg-slate-50 p-0.5 dark:border-white/10 dark:bg-white/[0.03]">
@@ -148,7 +148,7 @@ export default function DashboardPage() {
           <div className="flex flex-col gap-2 border-t border-slate-100 px-5 py-3.5 text-[10px] text-slate-400 dark:border-white/[0.06] dark:text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <span className="inline-flex items-center gap-1.5">
               <span className={cn("h-1.5 w-1.5 rounded-full", running ? "animate-pulse bg-brand-500" : "bg-slate-400")} />
-              {running ? "Recibiendo telemetría ESP32 cada 3 segundos" : "Active el simulador IoT para ver datos en vivo"}
+              {running ? "Lecturas de los sensores cada 3 segundos" : "Active el simulador para ver lecturas en vivo"}
             </span>
             <span>Pico del periodo: {formatNumber(kpis.peakKw, 2)} kW</span>
           </div>
@@ -191,7 +191,7 @@ export default function DashboardPage() {
         <div className="mb-3 flex items-center justify-between">
           <div>
             <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Tableros monitoreados</h2>
-            <p className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">Cuatro sensores no invasivos SCT-013 conectados al concentrador ESP32-LP-01</p>
+            <p className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">Cuatro sensores de corriente conectados al equipo central ESP32-LP-01</p>
           </div>
           <Badge className="border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" dot="bg-emerald-500">
             {zones.filter((zone) => zone.online).length}/4 en línea
@@ -291,7 +291,7 @@ export default function DashboardPage() {
               <div className="mt-4 space-y-2.5">
                 <div>
                   <div className="flex justify-between text-[10px]">
-                    <span className="text-slate-400">Gasto optimizado</span>
+                    <span className="text-slate-400">Gasto con mejoras</span>
                     <span className="font-semibold text-white">{formatSoles(kpis.monthCost)}</span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
@@ -300,7 +300,7 @@ export default function DashboardPage() {
                 </div>
                 <div>
                   <div className="flex justify-between text-[10px]">
-                    <span className="text-slate-400">Escenario sin EnerClass</span>
+                    <span className="text-slate-400">Escenario sin mejoras</span>
                     <span className="font-semibold text-slate-300">{formatSoles(kpis.baselineCost)}</span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
@@ -319,7 +319,7 @@ export default function DashboardPage() {
                 </div>
               </div>
               <Link href="/finanzas" className="mt-5 flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2.5 text-[11px] font-semibold text-slate-200 transition hover:bg-white/[0.08]">
-                Ver auditoría financiera <ArrowRight className="h-3.5 w-3.5 text-brand-400" />
+                Ver costos y facturación <ArrowRight className="h-3.5 w-3.5 text-brand-400" />
               </Link>
             </div>
           </div>
@@ -335,7 +335,7 @@ export default function DashboardPage() {
         <span className="inline-flex items-center gap-1.5">
           <SectionLabel>Periodo de facturación:</SectionLabel> {data.periodLabel} · Tarifa referencial BT3 S/ 0.715 / kWh
         </span>
-        <span>Fuente: 4 × SCT-013 100 A + ESP32 · Lecturas horarias de 30 días + telemetría en vivo</span>
+        <span>Fuente: cuatro sensores SCT-013 y equipo ESP32 · Lecturas de 30 días y registro en vivo</span>
       </div>
     </div>
   );
@@ -400,7 +400,7 @@ const CurrentPowerCard = memo(function CurrentPowerCard({ value, peak, running }
       value={formatNumber(value, 2)}
       unit="kW"
       icon={KPI_ICONS.current}
-      hint={running ? "Lecturas ESP32 cada 3 s" : "Última lectura de los 4 tableros"}
+      hint={running ? "Lecturas cada 3 segundos" : "Última lectura de los cuatro tableros"}
       accent="brand"
       footer={<Progress value={(value / Math.max(peak, 1)) * 100} className="h-1" />}
     />
@@ -413,7 +413,7 @@ const MonthCostCard = memo(function MonthCostCard({ value, baseline, savingsPct 
       label="Gasto acumulado"
       value={formatSoles(value)}
       icon={KPI_ICONS.cost}
-      hint={`Sin EnerClass: ${formatSoles(baseline)}`}
+      hint={`Sin mejoras: ${formatSoles(baseline)}`}
       accent="cyan"
       trend={{ value: `−${formatPercent(savingsPct, 0)}`, positive: true }}
     />
@@ -427,7 +427,7 @@ const TotalCurrentCard = memo(function TotalCurrentCard({ value }: { value: numb
       value={formatNumber(value, 1)}
       unit="A"
       icon={KPI_ICONS.amps}
-      hint="Suma de los 4 sensores SCT-013"
+      hint="Suma de los cuatro sensores"
       accent="amber"
       footer={<Progress value={(value / 100) * 100} className="h-1" barClassName="bg-amber-500" />}
     />
@@ -472,7 +472,7 @@ const SavingsCard = memo(function SavingsCard({ pct, soles }: { pct: number; sol
       label="Ahorro logrado"
       value={`${formatNumber(pct, 0)}%`}
       icon={KPI_ICONS.savings}
-      hint={`S/ ${formatNumber(soles, 0)} liberados este periodo`}
+      hint={`Ahorro estimado del periodo: S/ ${formatNumber(soles, 0)}`}
       accent="brand"
       footer={<Progress value={pct} max={25} className="h-1" />}
     />

@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     const parsed = telemetrySchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: "Trama inválida", details: parsed.error.flatten().fieldErrors },
+        { error: "Lectura inválida", details: parsed.error.flatten().fieldErrors },
         { status: 400 }
       );
     }
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("[EnerClass telemetry]", error);
-    return NextResponse.json({ error: "No se pudo procesar la trama de telemetría." }, { status: 500 });
+    return NextResponse.json({ error: "No se pudo procesar la lectura de telemetría." }, { status: 500 });
   }
 }
 

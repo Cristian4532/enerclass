@@ -24,8 +24,8 @@ export const SustainabilityBarChart = memo(
             <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: "currentColor", fontSize: 10 }} dy={8} />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: "currentColor", fontSize: 10 }} tickFormatter={(value) => `${value}`} width={44} />
             <Tooltip content={<EnergyTooltip unit="kWh" />} cursor={{ fill: "rgba(148,163,184,0.08)" }} />
-            <Bar dataKey="baselineKwh" name="Sin EnerClass" fill="#cbd5e1" radius={[5, 5, 0, 0]} maxBarSize={34} isAnimationActive={false} />
-            <Bar dataKey="currentKwh" name="Con EnerClass" fill="#10b981" radius={[5, 5, 0, 0]} maxBarSize={34} isAnimationActive={false} />
+            <Bar dataKey="baselineKwh" name="Sin mejoras" fill="#cbd5e1" radius={[5, 5, 0, 0]} maxBarSize={34} isAnimationActive={false} />
+            <Bar dataKey="currentKwh" name="Con mejoras" fill="#10b981" radius={[5, 5, 0, 0]} maxBarSize={34} isAnimationActive={false} />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -95,9 +95,9 @@ export default function AlertsPage() {
   return (
     <div className="animate-fade-up">
       <PageHeader
-        eyebrow="Motor de reglas · IoT"
-        title="Centro de alertas inteligentes"
-        description="Eventos de sobrecorriente, tensión y consumos fuera de horario detectados automáticamente por los sensores SCT-013 y el concentrador ESP32."
+        eyebrow="Inicio · Eventos del sistema"
+        title="Alertas del sistema eléctrico"
+        description="Eventos de sobrecorriente, tensión y consumo fuera de horario detectados por los sensores de los cuatro tableros."
         icon={<BellRing className="h-5 w-5" />}
         actions={
           <>
@@ -147,13 +147,13 @@ export default function AlertsPage() {
       <div className="mt-5 grid gap-5 xl:grid-cols-3">
         <Card className="xl:col-span-2">
           <CardHeader
-            title="Bandeja de alertas"
+            title="Alertas registradas"
             description={`${filteredTotal} evento${filteredTotal === 1 ? "" : "s"} · página ${data?.page ?? 1} de ${data?.totalPages ?? 1}`}
             icon={<BellRing className="h-4 w-4" />}
             action={
               <div className="flex items-center gap-2 text-[10px] text-slate-400">
                 <span className={cn("h-1.5 w-1.5 rounded-full", running ? "animate-pulse bg-brand-500" : "bg-slate-400")} />
-                {running ? "Actualizando cada 5 s" : "Actualización automática"}
+                {running ? "Actualización cada 5 segundos" : "Actualización automática"}
               </div>
             }
           />
@@ -373,7 +373,7 @@ export default function AlertsPage() {
 
         <div className="space-y-5">
           <Card>
-            <CardHeader title="Resumen por estado" description="Estado general del motor de alertas" icon={<Settings2 className="h-4 w-4" />} />
+            <CardHeader title="Resumen por estado" description="Situación general de las alertas" icon={<Settings2 className="h-4 w-4" />} />
             <div className="space-y-3 p-5">
               {Object.entries(ALERT_STATUS).map(([key, value]) => {
                 const count = counts?.byStatus[key] ?? 0;
@@ -397,7 +397,7 @@ export default function AlertsPage() {
                 );
               })}
               <div className="pt-2 text-[10px] leading-relaxed text-slate-400">
-                Las alertas se evalúan automáticamente con cada trama recibida del ESP32. Un mismo evento no se duplica dentro de los 30 minutos.
+                Las alertas se revisan con cada lectura recibida del equipo central. Un mismo evento no se repite dentro de los 30 minutos.
               </div>
             </div>
           </Card>
@@ -407,12 +407,12 @@ export default function AlertsPage() {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500/15 text-brand-600 dark:text-brand-400">
                 <ShieldCheck className="h-4 w-4" />
               </div>
-              <p className="mt-3 text-[12px] font-semibold text-slate-900 dark:text-white">Reglas activas en los 4 tableros</p>
+              <p className="mt-3 text-[12px] font-semibold text-slate-900 dark:text-white">Reglas activas en los cuatro tableros</p>
               <ul className="mt-2.5 space-y-1.5 text-[10.5px] leading-relaxed text-slate-500 dark:text-slate-400">
                 <li>• Sobrecorriente según límite por sensor.</li>
                 <li>• Tensión mínima y máxima permitida.</li>
                 <li>• Consumo nocturno, fines de semana y feriados.</li>
-                <li>• Deduplicación de eventos cada 30 minutos.</li>
+                <li>• Sin repetición de eventos cada 30 minutos.</li>
               </ul>
             </div>
           </Card>
@@ -421,8 +421,8 @@ export default function AlertsPage() {
 
       <Card className="mt-5">
         <CardHeader
-          title="Configurador de umbrales SCT-013"
-          description="Límites por sensor utilizados por el motor de reglas en tiempo real"
+          title="Límites de los sensores"
+          description="Valores de referencia para generar las alertas"
           icon={<Settings2 className="h-4 w-4" />}
           action={
             <Badge className="border-slate-200 bg-slate-50 text-slate-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400">
@@ -536,7 +536,7 @@ function ThresholdEditor({ threshold, canEdit, onSaved }: { threshold: Threshold
         </div>
       </div>
       <div className="mt-3.5 flex items-center justify-between">
-        <p className="text-[9px] text-slate-400">Los cambios aplican a la próxima trama.</p>
+        <p className="text-[9px] text-slate-400">Los cambios se aplican con la próxima lectura.</p>
         <Button size="sm" onClick={save} disabled={!canEdit} loading={saving}>
           {!saving ? <Save className="h-3 w-3" /> : null} Guardar
         </Button>

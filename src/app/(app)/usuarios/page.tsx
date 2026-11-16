@@ -71,7 +71,7 @@ const ROLE_THEME: Record<
 
 const PERMISSIONS: { label: string; detail: string; roles: RoleKey[] }[] = [
   {
-    label: "Visualizar dashboard y KPIs",
+    label: "Consultar el panel principal y los indicadores",
     detail: "Consumo en vivo, indicadores y distribución por tablero.",
     roles: ["DIRECCION", "ADMINISTRACION", "CIST"]
   },
@@ -86,22 +86,22 @@ const PERMISSIONS: { label: string; detail: string; roles: RoleKey[] }[] = [
     roles: ["DIRECCION", "CIST"]
   },
   {
-    label: "Inspeccionar consumo fantasma",
-    detail: "Registrar la revisión física de hallazgos residuales.",
+    label: "Revisar consumo fuera de horario",
+    detail: "Registrar la revisión física de los casos detectados.",
     roles: ["DIRECCION", "ADMINISTRACION", "CIST"]
   },
   {
     label: "Descargar reportes PDF",
-    detail: "Documentos ejecutivos, de costos y técnicos.",
+    detail: "Informes para Dirección, Tesorería y mantenimiento.",
     roles: ["DIRECCION", "ADMINISTRACION", "CIST"]
   },
   {
     label: "Conciliar facturación y tarifas",
-    detail: "Auditoría de recibos, IGV y ahorro presupuestal.",
+    detail: "Revisión de recibos, IGV y ahorro del presupuesto.",
     roles: ["DIRECCION", "ADMINISTRACION"]
   },
   {
-    label: "Configurar nodos IoT",
+    label: "Configurar sensores y equipos",
     detail: "Estado de sensores SCT-013, calibración y señal Wi-Fi.",
     roles: ["DIRECCION", "CIST"]
   },
@@ -300,7 +300,7 @@ export default function UsersPage() {
       <PageHeader
         eyebrow="Seguridad y control de acceso"
         title="Usuarios, roles y permisos"
-        description="Administre las cuentas que acceden a EnerClass y revise la matriz de permisos institucionales. Cada rol define qué información energética y financiera puede consultar o modificar."
+        description="Consulte las cuentas que acceden a EnerClass y la matriz de permisos. Cada rol define qué información puede revisar o modificar."
         icon={<Users className="h-5 w-5" />}
         actions={
           <>
@@ -379,7 +379,7 @@ export default function UsersPage() {
           <Card className="mt-5 overflow-hidden">
             <CardHeader
               title={`Directorio institucional${data ? ` (${filtered.length})` : ""}`}
-              description="Cuentas habilitadas para el monitoreo energético del colegio"
+              description="Cuentas habilitadas para el seguimiento del consumo"
               icon={<UserRound className="h-4 w-4" />}
               action={
                 <div className="flex flex-wrap items-center gap-2">

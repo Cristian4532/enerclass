@@ -36,24 +36,24 @@ export function efficiencyRating(kwhPerStudent: number) {
   ];
 
   const currentIndex = scale.findIndex((item) => kwhPerStudent <= item.max);
-  const current = scale[currentIndex === -1 ? scale.length - 1 : currentIndex];
-  const previousMax = currentIndex > 0 ? scale[currentIndex - 1].max : 0;
-  const next = scale[currentIndex + 1];
+  const safeIndex = currentIndex === -1 ? scale.length - 1 : currentIndex;
+  const current = scale[safeIndex];
+  const previousMax = safeIndex > 0 ? scale[safeIndex - 1].max : 0;
+  const better = safeIndex > 0 ? scale[safeIndex - 1] : null;
   const progressInBand =
     current.max === Infinity ? 0 : Math.min(100, Math.max(0, ((kwhPerStudent - previousMax) / (current.max - previousMax)) * 100));
-  const score = Math.max(5, Math.round(100 - progressInBand * 0.6 - currentIndex * 8));
+  const score = Math.max(5, Math.min(100, Math.round(100 - safeIndex * 10 - progressInBand * 0.09)));
 
   return {
     rating: current.rating,
     label: current.label,
     score,
     description:
-      currentIndex <= 2
-        ? "El plantel se encuentra dentro de un rango de eficiencia adecuado para su población escolar."
-        : "Existe margen de mejora en los hábitos de uso y en la programación de cargas nocturnas.",
-    next:
-      currentIndex < scale.length - 1
-        ? `Para alcanzar la categoría ${next.rating}, el consumo debe bajar a ${next.max} kWh por estudiante al mes.`
-        : "Mantener el monitoreo permanente para conservar la categoría alcanzada."
+      safeIndex <= 2
+        ? "El consumo por estudiante se encuentra en un rango adecuado para el colegio."
+        : "El consumo por estudiante puede reducirse con cambios en el uso y la programación de los equipos.",
+    next: better
+      ? `Para alcanzar la categoría ${better.rating}, el consumo debe bajar a ${better.max} kWh por estudiante al mes.`
+      : "Mantener el seguimiento mensual para conservar la categoría A."
   };
 }

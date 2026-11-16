@@ -65,7 +65,7 @@ export default function GhostConsumptionPage() {
     const next = finding.status === "PENDIENTE" ? "INSPECCIONADO" : "PENDIENTE";
     try {
       await apiFetch(`/api/ghost/${finding.id}`, { method: "PATCH", body: JSON.stringify({ status: next }) });
-      toast.success(next === "INSPECCIONADO" ? "Inspección registrada correctamente." : "Hallazgo reabierto.");
+      toast.success(next === "INSPECCIONADO" ? "Inspección registrada correctamente." : "Caso reabierto.");
       await refresh();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No se pudo actualizar el hallazgo.");
@@ -84,9 +84,9 @@ export default function GhostConsumptionPage() {
   return (
     <div className="animate-fade-up">
       <PageHeader
-        eyebrow="Auditoría energética · ODS 7"
-        title="Detector de consumos fantasmas"
-        description="Identificación de cargas residuales fuera del horario lectivo: noches de 18:00 a 07:30, fines de semana y feriados. Cada hallazgo tiene un responsable y seguimiento."
+        eyebrow="Consumo · Fuera de horario"
+        title="Consumo eléctrico fuera de horario"
+        description="Revisión de equipos y circuitos que siguen consumiendo energía fuera de la jornada: noches de 18:00 a 07:30, fines de semana y feriados. Cada caso tiene un responsable y seguimiento."
         icon={<Ghost className="h-5 w-5" />}
         actions={
           <>
@@ -97,7 +97,7 @@ export default function GhostConsumptionPage() {
               <RefreshCcw className={cn("h-3.5 w-3.5", refreshing && "animate-spin")} /> Actualizar
             </Button>
             <Button size="sm" onClick={scan} loading={scanning}>
-              {!scanning ? <ScanSearch className="h-3.5 w-3.5" /> : null} Escanear fugas
+              {!scanning ? <ScanSearch className="h-3.5 w-3.5" /> : null} Buscar consumos
             </Button>
           </>
         }
@@ -121,7 +121,7 @@ export default function GhostConsumptionPage() {
           accent="amber"
         />
         <StatCard
-          label="Consumo fantasma"
+          label="Consumo fuera de horario"
           value={formatNumber(totals.ghostPct, 1)}
           unit="%"
           icon={<Moon className="h-5 w-5" />}
@@ -141,13 +141,13 @@ export default function GhostConsumptionPage() {
       <div className="mt-5 grid gap-5 xl:grid-cols-3">
         <Card className="xl:col-span-2">
           <CardHeader
-            title="Consumo lectivo vs. consumo fantasma"
+            title="Consumo en horario lectivo y fuera de horario"
             description="Energía acumulada por tablero en los últimos 30 días (kWh)"
             icon={<Zap className="h-4 w-4" />}
             action={
               <div className="flex items-center gap-3 text-[9.5px] text-slate-400">
                 <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-brand-500" /> Lectivo</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-rose-400" /> Fantasma</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-rose-400" /> Fuera de horario</span>
               </div>
             }
           />
@@ -165,7 +165,7 @@ export default function GhostConsumptionPage() {
         </Card>
 
         <Card>
-          <CardHeader title="Huella de la fuga nocturna" description="Participación del consumo fantasma" icon={<Moon className="h-4 w-4" />} />
+          <CardHeader title="Peso del consumo nocturno" description="Participación en el consumo total" icon={<Moon className="h-4 w-4" />} />
           <div className="p-5">
             <div className="relative mx-auto flex h-44 w-44 items-center justify-center">
               <div
@@ -174,7 +174,7 @@ export default function GhostConsumptionPage() {
               />
               <div className="absolute inset-[13px] rounded-full bg-white dark:bg-[#0b1626]" />
               <div className="relative text-center">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Fantasma</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Fuera de horario</p>
                 <p className="mt-0.5 text-[30px] font-bold tracking-tight text-slate-900 dark:text-white">{formatNumber(totals.ghostPct, 1)}%</p>
                 <p className="text-[9.5px] text-slate-400">del consumo total</p>
               </div>
@@ -202,7 +202,7 @@ export default function GhostConsumptionPage() {
       <Card className="mt-5 overflow-hidden">
         <CardHeader
           title="Hallazgos de equipos y circuitos"
-          description="Cargas residuales detectadas en la auditoría del periodo"
+          description="Equipos y circuitos con consumo detectado fuera de horario"
           icon={<ScanSearch className="h-4 w-4" />}
           action={
             <div className="flex flex-wrap items-center gap-2">

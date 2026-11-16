@@ -1,6 +1,6 @@
-# EnerClass — Monitoreo energético IoT
+# EnerClass — Seguimiento del consumo eléctrico
 
-Aplicación web institucional para la **I.E. N° 2001 «Leoncio Prado»** (Rímac, Lima — Perú). Mide el consumo eléctrico de cuatro tableros con sensores **SCT-013** y un concentrador **ESP32**, evalúa alertas, estima el ahorro en Soles y genera reportes PDF.
+Aplicación web institucional para la **I.E. N° 2001 «Leoncio Prado»** (Rímac, Lima — Perú). Registra el consumo eléctrico de cuatro tableros con sensores **SCT-013** y un equipo **ESP32**, genera alertas, estima el ahorro en Soles y prepara reportes en PDF.
 
 ## Inicio rápido
 
@@ -31,7 +31,7 @@ npm run start
 El servidor escucha en `0.0.0.0:3000`. Al abrir `/login` verá un banner azul con
 la IP real de la laptop anfitriona, por ejemplo `http://192.168.1.45:3000`.
 Cualquier equipo conectado a la misma red Wi-Fi o hotspot puede abrir esa URL sin
-instalar nada. La misma dirección aparece en **Nodos IoT**.
+instalar nada. La misma dirección aparece en **Sensores y equipos**.
 
 > En Windows, la primera vez que arranque Node puede aparecer el aviso del
 > Firewall: permita el acceso en **redes privadas**. El puerto usado es el 3000.
@@ -62,16 +62,16 @@ La pantalla de acceso también permite entrar con un clic usando cualquiera de l
 
 ## Módulos incluidos
 
-- **Dashboard** — consumo en vivo, KPIs, series de 24 h / 7 d / 30 d, distribución por tablero y alertas recientes.
-- **Alertas inteligentes** — motor de reglas (sobrecorriente, tensión, consumo nocturno), filtros, cambio de estado y umbrales editables.
-- **Consumo fantasma** — comparación consumo lectivo vs. residual, pérdidas en Soles, hallazgos e inspecciones.
-- **Finanzas y facturación** — factura optimizada vs. línea base, tarifa, IGV, demanda máxima y simulador de escenarios.
-- **Sostenibilidad ODS** — CO₂ evitado, árboles equivalentes, eficiencia A–G y aporte por tablero.
-- **Nodos IoT** — estado de los cuatro nodos, sensores SCT-013, señal Wi-Fi, consola JSON, contrato de API y firmware Arduino.
-- **Reportes PDF** — reportes ejecutivo, de costos y técnico, con encabezado institucional, KPIs, tablas, alertas, estado de sensores y recomendaciones (jsPDF + autotable).
-- **Usuarios y roles** — directorio, creación/edición, activación/desactivación, eliminación y matriz de permisos RBAC.
+- **Panel principal** — consumo en vivo, indicadores, series de 24 h / 7 d / 30 d, distribución por tablero y alertas recientes.
+- **Alertas** — reglas de sobrecorriente, tensión y consumo nocturno; filtros, cambio de estado y límites editables.
+- **Consumo fuera de horario** — comparación entre consumo lectivo y residual, pérdidas en Soles, hallazgos e inspecciones.
+- **Costos y facturación** — recibo estimado frente al escenario sin mejoras, tarifa, IGV, demanda máxima y simulador de escenarios.
+- **Sostenibilidad** — CO₂ evitado, árboles equivalentes, eficiencia A–G y aporte por tablero.
+- **Sensores y equipos** — estado de los cuatro sensores, señal Wi-Fi, registro de lecturas, formato de envío y firmware Arduino.
+- **Reportes** — informes ejecutivo, de costos y técnico, con encabezado institucional, indicadores, tablas, alertas, estado de sensores y recomendaciones (jsPDF + autotable).
+- **Usuarios** — directorio, creación/edición, activación/desactivación, eliminación y matriz de permisos.
 
-El encabezado incluye el interruptor **«Simulador IoT en Vivo»**, que envía cuatro lecturas (una por zona) cada 3 segundos al endpoint de telemetría.
+El encabezado incluye el interruptor **«Simulador de lecturas»**, que envía cuatro lecturas (una por zona) cada 3 segundos al endpoint de telemetría.
 
 ## API de telemetría ESP32
 
@@ -115,7 +115,7 @@ Respuesta:
 }
 ```
 
-El firmware completo de referencia se puede consultar y descargar desde **Nodos IoT → Firmware ESP32**.
+El firmware completo de referencia se puede consultar y descargar desde **Sensores y equipos → Código del firmware**.
 
 ## Comandos útiles
 

@@ -26,7 +26,7 @@ export function Sidebar({ user, open, onClose }: { user: SessionUser; open: bool
             <p className="text-[17px] font-bold leading-none tracking-tight text-white">
               Ener<span className="text-brand-400">Class</span>
             </p>
-            <p className="mt-1 text-[9.5px] font-medium uppercase tracking-[0.16em] text-slate-500">Smart energy · IoT</p>
+            <p className="mt-1 text-[9.5px] font-medium uppercase tracking-[0.16em] text-slate-500">Gestión eléctrica</p>
           </div>
         </Link>
         <button onClick={onClose} className="rounded-lg p-1.5 text-slate-400 hover:bg-white/10 hover:text-white lg:hidden" aria-label="Cerrar menú">
@@ -89,7 +89,7 @@ export function Sidebar({ user, open, onClose }: { user: SessionUser; open: bool
           <Progress value={18} className="mt-2.5 h-1 bg-white/10" barClassName="bg-gradient-to-r from-brand-500 to-emerald-300" />
           <div className="mt-3 flex items-center gap-2 text-[10px] text-slate-400">
             <span className="glow-dot" />
-            <span>4/4 sensores SCT-013 activos</span>
+            <span>4 de 4 sensores activos</span>
           </div>
         </div>
         <div className="mt-3 flex items-center justify-between px-1 text-[9.5px] text-slate-600">

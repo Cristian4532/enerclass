@@ -93,13 +93,13 @@ export default function ReportsPage() {
     <div className="animate-fade-up">
       <PageHeader
         eyebrow="Documentación institucional"
-        title="Generador de reportes ejecutivos PDF"
-        description="Seleccione el periodo, las zonas y el enfoque del informe. EnerClass construye un documento profesional con indicadores, consumos en kWh y Soles, alertas y recomendaciones."
+        title="Reportes institucionales"
+        description="Seleccione el periodo, las zonas y el tipo de informe. El sistema prepara un documento en PDF con consumos, costos, alertas y recomendaciones."
         icon={<FileText className="h-5 w-5" />}
         actions={
           <>
             <Badge className="h-8 border-brand-500/20 bg-brand-500/10 px-3 text-brand-700 dark:text-brand-400" dot="bg-brand-500">
-              PDF profesional
+              Formato PDF
             </Badge>
             <Badge className="h-8 border-slate-200 bg-white px-3 text-slate-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400">
               <ShieldCheck className="h-3 w-3" /> Datos institucionales
@@ -113,7 +113,7 @@ export default function ReportsPage() {
           <Card>
             <CardHeader
               title="Configuración del reporte"
-              description="Los campos marcados se utilizan para construir el documento PDF"
+              description="Complete los datos que se incluirán en el documento"
               icon={<FileText className="h-4 w-4" />}
               action={<span className="text-[10px] text-slate-400">Periodo máximo: 90 días</span>}
             />
@@ -214,7 +214,7 @@ export default function ReportsPage() {
                   </label>
                   <label className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-200 p-3 text-[11px] text-slate-600 dark:border-white/[0.08] dark:text-slate-300">
                     <input type="checkbox" checked={includeRecommendations} onChange={(event) => setIncludeRecommendations(event.target.checked)} className="h-3.5 w-3.5 accent-emerald-600" />
-                    Recomendaciones automáticas
+                    Recomendaciones de mejora
                   </label>
                 </div>
               </section>
@@ -232,7 +232,7 @@ export default function ReportsPage() {
                 </div>
                 <Button onClick={generate} loading={generating} size="lg" className="shrink-0">
                   {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-                  {generating ? "Construyendo PDF…" : "Generar y descargar PDF"}
+                  {generating ? "Generando PDF…" : "Generar y descargar PDF"}
                 </Button>
               </div>
             </div>
@@ -294,10 +294,10 @@ export default function ReportsPage() {
                 <div className="mt-5 space-y-2.5 border-t border-white/[0.07] pt-4 text-[10px]">
                   {[
                     "Resumen ejecutivo del periodo",
-                    "KPI energéticos y económicos",
+                    "Indicadores energéticos y económicos",
                     "Consumo por tablero en kWh y S/",
                     "Historial de alertas registradas",
-                    "Recomendaciones automáticas"
+                    "Recomendaciones de mejora"
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-slate-300">
                       <CheckCircle2 className="h-3 w-3 shrink-0 text-brand-400" /> {item}
@@ -318,7 +318,7 @@ export default function ReportsPage() {
               <p className="text-[11px] font-semibold text-slate-800 dark:text-slate-100">Recomendación de uso</p>
             </div>
             <p className="mt-2 text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
-              Para la reunión mensual de la comisión de eficiencia energética, genere el reporte <strong className="font-semibold text-slate-700 dark:text-slate-200">Ejecutivo para Dirección</strong> con un rango de 30 días. Para conciliar la facturación con la UGEL, use el reporte de <strong className="font-semibold text-slate-700 dark:text-slate-200">Auditoría de Costos</strong>.
+              Para la reunión mensual de la comisión de eficiencia energética, genere el <strong className="font-semibold text-slate-700 dark:text-slate-200">Reporte ejecutivo para Dirección</strong> con un rango de 30 días. Para conciliar la facturación con la UGEL, use el <strong className="font-semibold text-slate-700 dark:text-slate-200">Reporte de costos para Tesorería</strong>.
             </p>
             <div className="mt-3 rounded-lg bg-slate-50 px-3 py-2.5 text-[9.5px] leading-relaxed text-slate-400 dark:bg-white/[0.03]">
               Los reportes incluyen únicamente las zonas seleccionadas. Los montos en Soles son referenciales e incluyen IGV del 18 %.
@@ -559,11 +559,11 @@ async function buildPdf(report: ReportData, options: { includeAlerts: boolean; i
   }
 
   ensureSpace(30);
-  sectionHeading("Estado de nodos IoT y sensores SCT-013");
+  sectionHeading("Estado de sensores y equipos");
   autoTable(doc, {
     startY: y - 1,
     margin: { left: margin, right: margin, top: 19, bottom: 22 },
-    head: [["Nodo", "Zona", "Estado", "Última sincronización", "Calibración", "Offset", "Señal Wi-Fi"]],
+    head: [["Código", "Zona", "Estado", "Última sincronización", "Calibración", "Offset", "Señal Wi-Fi"]],
     body: report.sensors.map((sensor) => [
       sensor.code,
       sensor.name,
@@ -599,7 +599,7 @@ async function buildPdf(report: ReportData, options: { includeAlerts: boolean; i
 
   if (options.includeRecommendations && report.recommendations.length) {
     ensureSpace(38);
-    sectionHeading("Recomendaciones automáticas");
+    sectionHeading("Recomendaciones de mejora");
     report.recommendations.forEach((recommendation, index) => {
       const lines = doc.splitTextToSize(recommendation, contentWidth - 8);
       const blockHeight = lines.length * 4.1 + 3.5;
@@ -630,7 +630,7 @@ async function buildPdf(report: ReportData, options: { includeAlerts: boolean; i
   doc.setFontSize(6.6);
   doc.setTextColor(...MUTED);
   const noteLines = doc.splitTextToSize(
-    "Los consumos provienen de los sensores SCT-013 conectados al concentrador ESP32-LP-01 y se expresan en kWh. Los montos en Soles son referenciales, incluyen IGV del 18 % y se calculan con la tarifa BT3 configurada. La línea base corresponde al consumo estimado sin las medidas de eficiencia energética.",
+    "Los consumos provienen de los sensores SCT-013 conectados al equipo central ESP32-LP-01 y se expresan en kWh. Los montos en Soles son referenciales, incluyen IGV del 18 % y se calculan con la tarifa BT3 configurada. El escenario sin mejoras corresponde al consumo estimado antes de las medidas de eficiencia energética.",
     contentWidth - 8
   );
   doc.text(noteLines, margin + 4, y + 10.5);

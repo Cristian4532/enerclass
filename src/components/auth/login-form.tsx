@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, CheckCircle2, Crown, Eye, EyeOff, Gauge, Landmark, Leaf, Loader2, Lock, Mail, Radio, ShieldCheck, Sparkles, Wrench, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, Crown, Eye, EyeOff, Gauge, Landmark, Leaf, Loader2, Lock, Mail, Radio, ShieldCheck, Wrench, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { ROLES, type RoleKey } from "@/lib/constants";
 import { NetworkBanner } from "@/components/network-banner";
@@ -73,29 +73,29 @@ export function LoginForm() {
               <p className="text-xl font-bold tracking-tight text-white">
                 Ener<span className="text-brand-400">Class</span>
               </p>
-              <p className="text-[9.5px] font-medium uppercase tracking-[0.18em] text-slate-500">Smart energy · IoT · ODS 7</p>
+              <p className="text-[9.5px] font-medium uppercase tracking-[0.18em] text-slate-500">Gestión eléctrica institucional</p>
             </div>
           </div>
 
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-brand-300">
-              <Sparkles className="h-3 w-3" /> Institución Educativa N° 2001
+              <Landmark className="h-3 w-3" /> I.E. N° 2001 «Leoncio Prado»
             </span>
             <h1 className="mt-5 text-balance text-[40px] font-bold leading-[1.08] tracking-tight text-white xl:text-[48px]">
-              Energía que rinde más.
+              Control del consumo eléctrico.
               <br />
-              <span className="bg-gradient-to-r from-brand-300 via-emerald-300 to-teal-200 bg-clip-text text-transparent">Educación que ilumina.</span>
+              <span className="bg-gradient-to-r from-brand-300 via-emerald-300 to-teal-200 bg-clip-text text-transparent">Más recursos para la enseñanza.</span>
             </h1>
             <p className="mt-5 max-w-md text-[14px] leading-relaxed text-slate-400">
-              Monitoreo inteligente del consumo eléctrico de la I.E. N° 2001 «Leoncio Prado» — Rímac, Lima. Cuatro tableros, sensores SCT-013 y decisiones basadas en datos para liberar presupuesto pedagógico.
+              EnerClass registra el consumo de los cuatro tableros de la I.E. N° 2001 «Leoncio Prado», en Rímac, Lima. La información permite detectar gastos innecesarios y sustentar decisiones de mantenimiento y presupuesto.
             </p>
 
             <div className="mt-9 grid max-w-lg grid-cols-2 gap-3">
               {[
-                { icon: Radio, label: "4 tableros monitoreados", value: "ESP32 + SCT-013" },
-                { icon: Gauge, label: "Reducción validada", value: "18% de ahorro" },
+                { icon: Radio, label: "4 tableros conectados", value: "Sensores SCT-013" },
+                { icon: Gauge, label: "Ahorro del periodo", value: "18% frente a la línea base" },
                 { icon: Leaf, label: "Impacto ambiental", value: "ODS 7 y ODS 13" },
-                { icon: ShieldCheck, label: "Alertas inteligentes", value: "24/7 en tiempo real" }
+                { icon: ShieldCheck, label: "Avisos automáticos", value: "Permanentes, 24/7" }
               ].map((item) => (
                 <div key={item.label} className="rounded-xl border border-white/[0.07] bg-white/[0.035] p-3.5 backdrop-blur-sm">
                   <item.icon className="h-4 w-4 text-brand-400" />
@@ -124,7 +124,7 @@ export function LoginForm() {
           <div className="flex items-center justify-between text-[10px] text-slate-600">
             <span>© 2026 EnerClass · I.E. N° 2001 Leoncio Prado</span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="glow-dot" /> Sistema operativo
+              <span className="glow-dot" /> Servicio disponible
             </span>
           </div>
         </div>
@@ -149,7 +149,7 @@ export function LoginForm() {
             <p className="eyebrow mb-2">Acceso institucional</p>
             <h2 className="text-[28px] font-bold tracking-tight text-slate-900 dark:text-white sm:text-[32px]">Bienvenido a EnerClass</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-              Ingrese con su cuenta institucional o use un perfil de demostración para explorar el sistema completo.
+              Ingrese con su cuenta institucional o use un perfil de demostración para recorrer el sistema.
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export function LoginForm() {
 
           <div className="mb-6">
             <div className="mb-2.5 flex items-center justify-between">
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Acceso Rápido Demo</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Perfiles de demostración</p>
               <span className="rounded-full border border-brand-500/20 bg-brand-500/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-700 dark:text-brand-300">
                 1 clic
               </span>

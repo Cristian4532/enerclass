@@ -21,7 +21,7 @@ export function AppShell({ user, children }: { user: SessionUser; children: Reac
           </main>
           <footer className="border-t border-slate-200/70 px-4 py-4 text-[10px] text-slate-400 dark:border-white/[0.05] dark:text-slate-600 sm:px-6 lg:px-8">
             <div className="mx-auto flex max-w-[1600px] flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-              <p>EnerClass · Sistema de monitoreo y optimización energética — I.E. N° 2001 «Leoncio Prado», Rímac.</p>
+              <p>EnerClass · Sistema de seguimiento del consumo eléctrico — I.E. N° 2001 «Leoncio Prado», Rímac.</p>
               <p>Datos de demostración · Sensores SCT-013 · ESP32-LP-01</p>
             </div>
           </footer>

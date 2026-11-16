@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s · EnerClass"
   },
   description:
-    "Plataforma de monitoreo inteligente del consumo eléctrico y optimización energética de la I.E. N° 2001 Leoncio Prado, Rímac — Lima, Perú.",
+    "Sistema de seguimiento del consumo eléctrico y la eficiencia energética de la I.E. N° 2001 Leoncio Prado, Rímac — Lima, Perú.",
   applicationName: "EnerClass",
   keywords: ["EnerClass", "eficiencia energética", "IoT", "ESP32", "SCT-013", "Leoncio Prado", "Rímac"],
   authors: [{ name: "I.E. N° 2001 Leoncio Prado" }]

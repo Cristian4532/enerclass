@@ -31,7 +31,7 @@ export const ROLES = {
   DIRECCION: {
     label: "Dirección Institucional",
     short: "Dirección",
-    description: "Vista ejecutiva, indicadores de ahorro presupuestal y reportes PDF.",
+    description: "Resumen del consumo, ahorro y reportes para la toma de decisiones.",
     email: "direccion@leoncioprado.edu.pe",
     password: "Direccion2026!",
     person: "Mg. Carmen Rosa Salazar Vega",
@@ -41,7 +41,7 @@ export const ROLES = {
   ADMINISTRACION: {
     label: "Subdirección Administrativa / Tesorería",
     short: "Tesorería",
-    description: "Auditoría de recibos en Soles, costos, tarifas y conciliación financiera.",
+    description: "Revisión de costos, tarifas y recibos del colegio.",
     email: "tesoreria@leoncioprado.edu.pe",
     password: "Tesoreria2026!",
     person: "Lic. José Antonio Ramos Díaz",
@@ -51,7 +51,7 @@ export const ROLES = {
   CIST: {
     label: "Mantenimiento y Soporte Técnico — CIST",
     short: "Soporte CIST",
-    description: "Diagnóstico de sensores SCT-013, nodos ESP32, amperaje y alertas técnicas.",
+    description: "Estado de sensores, equipos y alertas técnicas.",
     email: "cist@leoncioprado.edu.pe",
     password: "Cist2026!",
     person: "Téc. Luis Alberto Quispe Rojas",
@@ -79,33 +79,33 @@ export const ALERT_TYPES: Record<string, string> = {
   VOLTAJE_ALTO: "Sobretensión",
   VOLTAJE_BAJO: "Baja tensión",
   FUERA_HORARIO: "Fuera de horario",
-  NODO_OFFLINE: "Nodo sin conexión",
-  FANTASMA: "Consumo fantasma"
+  NODO_OFFLINE: "Equipo sin conexión",
+  FANTASMA: "Consumo fuera de horario"
 };
 
 export const NAV_ITEMS = [
-  { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard", section: "Principal" },
-  { href: "/alertas", label: "Alertas inteligentes", icon: "BellRing", section: "Principal" },
-  { href: "/consumo-fantasma", label: "Consumo fantasma", icon: "Ghost", section: "Energía" },
-  { href: "/finanzas", label: "Finanzas y facturación", icon: "Wallet", section: "Energía" },
-  { href: "/sostenibilidad", label: "Sostenibilidad ODS", icon: "Leaf", section: "Energía" },
-  { href: "/dispositivos-iot", label: "Nodos IoT", icon: "Cpu", section: "Operación" },
-  { href: "/reportes", label: "Reportes PDF", icon: "FileText", section: "Institución" },
-  { href: "/usuarios", label: "Usuarios y roles", icon: "Users", section: "Institución" }
+  { href: "/dashboard", label: "Panel principal", icon: "LayoutDashboard", section: "Inicio" },
+  { href: "/alertas", label: "Alertas", icon: "BellRing", section: "Inicio" },
+  { href: "/consumo-fantasma", label: "Consumo fuera de horario", icon: "Ghost", section: "Consumo" },
+  { href: "/finanzas", label: "Costos y facturación", icon: "Wallet", section: "Consumo" },
+  { href: "/sostenibilidad", label: "Sostenibilidad", icon: "Leaf", section: "Consumo" },
+  { href: "/dispositivos-iot", label: "Sensores y equipos", icon: "Cpu", section: "Equipos" },
+  { href: "/reportes", label: "Reportes", icon: "FileText", section: "Administración" },
+  { href: "/usuarios", label: "Usuarios", icon: "Users", section: "Administración" }
 ] as const;
 
 export const REPORT_TYPES = {
   ejecutivo: {
-    label: "Ejecutivo para Dirección",
-    description: "Indicadores de ahorro, KPIs institucionales y recomendaciones estratégicas."
+    label: "Reporte ejecutivo para Dirección",
+    description: "Resumen del consumo, ahorro y recomendaciones para la reunión mensual."
   },
   costos: {
-    label: "Auditoría de Costos para Tesorería",
-    description: "Consumo en kWh, costos en Soles, tarifas, IGV y conciliación financiera."
+    label: "Reporte de costos para Tesorería",
+    description: "Consumo en kWh, costos en Soles, tarifas e IGV."
   },
   tecnico: {
-    label: "Técnico de Mantenimiento",
-    description: "Estado de nodos, sensores SCT-013, picos de corriente y alertas técnicas."
+    label: "Reporte técnico de mantenimiento",
+    description: "Estado de sensores y equipos, picos de corriente y alertas técnicas."
   }
 } as const;
 

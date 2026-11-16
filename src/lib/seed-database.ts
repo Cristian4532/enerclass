@@ -363,7 +363,7 @@ export async function seedDatabase(prisma: PrismaClient, options: SeedOptions = 
       zoneId: "zona-computo",
       type: "FUERA_HORARIO",
       severity: "INFORMATIVA",
-      title: "Consumo fantasma en laboratorio de innovación",
+      title: "Consumo fuera de horario en laboratorio de innovación",
       message: "Carga residual de 0.31 kW durante la madrugada. Los equipos de cómputo no se apagaron por completo.",
       value: 0.31,
       threshold: 0.28,
@@ -389,8 +389,8 @@ export async function seedDatabase(prisma: PrismaClient, options: SeedOptions = 
       zoneId: null,
       type: "NODO_OFFLINE",
       severity: "CRITICA",
-      title: "Nodo ESP32 sin conexión",
-      message: "El concentrador ESP32-LP-01 perdió conexión Wi-Fi durante 18 minutos. Los datos se recuperaron automáticamente al restablecerse la red.",
+      title: "Equipo ESP32 sin conexión",
+      message: "El equipo central ESP32-LP-01 perdió conexión Wi-Fi durante 18 minutos. Los datos se recuperaron automáticamente al restablecerse la red.",
       value: 18,
       threshold: null,
       status: "RESUELTA",
@@ -403,7 +403,7 @@ export async function seedDatabase(prisma: PrismaClient, options: SeedOptions = 
       type: "FANTASMA",
       severity: "ADVERTENCIA",
       title: "Fuga energética en pabellón B",
-      message: "Luminarias del pabellón B permanecieron encendidas durante el fin de semana, generando 9.8 kWh de consumo fantasma.",
+      message: "Luminarias del pabellón B permanecieron encendidas durante el fin de semana, generando 9.8 kWh fuera del horario escolar.",
       value: 9.8,
       threshold: 0.32,
       status: "RESUELTA",
@@ -589,7 +589,7 @@ export async function seedDatabase(prisma: PrismaClient, options: SeedOptions = 
     console.log(`   • 4 zonas / sensores SCT-013`);
     console.log(`   • ${readings.length} lecturas horarias (30 días)`);
     console.log(`   • ${alertSeed.length} alertas históricas`);
-    console.log(`   • 8 hallazgos de consumo fantasma`);
+    console.log(`   • 8 hallazgos de consumo fuera de horario`);
     console.log(`   • Energía total 30 días: ${totalKwh.toFixed(1)} kWh`);
     console.log("\n🔑 Credenciales de acceso:");
     console.log("   Dirección:      direccion@leoncioprado.edu.pe / Direccion2026!");

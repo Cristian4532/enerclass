@@ -98,7 +98,7 @@ export function Header({ user, onMenu }: { user: SessionUser; onMenu: () => void
           </button>
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <p className="truncate text-[15px] font-semibold text-slate-900 dark:text-white">{current?.label ?? "Panel EnerClass"}</p>
+              <p className="truncate text-[15px] font-semibold text-slate-900 dark:text-white">{current?.label ?? "Panel principal"}</p>
               <span className="hidden rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-slate-500 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-slate-400 sm:inline">
                 {current?.section ?? "EnerClass"}
               </span>
@@ -112,7 +112,7 @@ export function Header({ user, onMenu }: { user: SessionUser; onMenu: () => void
             onClick={toggle}
             role="switch"
             aria-checked={running}
-            title="Simulador IoT en vivo — envía lecturas ESP32 cada 3 segundos"
+            title="Simulador de lecturas — envía datos de prueba cada 3 segundos"
             className={cn(
               "group flex h-9 items-center gap-2 rounded-full border px-2.5 text-[11px] font-semibold transition-all",
               running
@@ -121,9 +121,9 @@ export function Header({ user, onMenu }: { user: SessionUser; onMenu: () => void
             )}
           >
             {running ? <Radio className="h-3.5 w-3.5 animate-pulse" /> : <Zap className="h-3.5 w-3.5" />}
-            <span className="hidden lg:inline">Simulador IoT en Vivo</span>
+            <span className="hidden lg:inline">Simulador de lecturas</span>
             <span className="hidden sm:inline lg:hidden">Simulador</span>
-            {running ? <span className="hidden text-[9px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 xl:inline">{sentCount} tramas</span> : null}
+            {running ? <span className="hidden text-[9px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 xl:inline">{sentCount} lecturas</span> : null}
             <span className={cn("relative ml-0.5 h-[18px] w-8 rounded-full transition-colors", running ? "bg-brand-500" : "bg-slate-300 dark:bg-white/20")} style={{ height: 18, width: 32 }}>
               <span
                 className={cn(
@@ -188,7 +188,7 @@ export function Header({ user, onMenu }: { user: SessionUser; onMenu: () => void
                     onClick={() => setMenuOpen(false)}
                     className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/[0.05]"
                   >
-                    <Users className="h-4 w-4 text-slate-400" /> Usuarios y roles
+                    <Users className="h-4 w-4 text-slate-400" /> Usuarios y permisos
                   </Link>
                   <Link
                     href="/alertas"

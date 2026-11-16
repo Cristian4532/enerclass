@@ -97,9 +97,9 @@ export function SimulatorProvider({ children }: { children: React.ReactNode }) {
       const failures = results.filter((result) => result.status === "rejected");
       setSentCount((count) => count + batch.length);
       setLastSentAt(new Date().toISOString());
-      setError(failures.length ? "Algunas tramas no pudieron enviarse. Reintentando…" : null);
+      setError(failures.length ? "Algunas lecturas no pudieron enviarse. Reintentando…" : null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al enviar telemetría simulada");
+      setError(err instanceof Error ? err.message : "Error al enviar las lecturas simuladas");
     } finally {
       inFlight.current = false;
     }

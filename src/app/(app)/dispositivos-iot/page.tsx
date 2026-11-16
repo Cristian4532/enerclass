@@ -103,10 +103,10 @@ export default function IotDevicesPage() {
     setSending(true);
     try {
       await sendOnce();
-      toast.success("Trama de prueba enviada para las 4 zonas.");
+      toast.success("Lectura de prueba enviada para las cuatro zonas.");
       await refresh();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "No se pudo enviar la trama.");
+      toast.error(err instanceof Error ? err.message : "No se pudo enviar la lectura.");
     } finally {
       setSending(false);
     }
@@ -121,20 +121,20 @@ export default function IotDevicesPage() {
   return (
     <div className="animate-fade-up">
       <PageHeader
-        eyebrow="Operación · Hardware IoT"
-        title="Nodos IoT y sensores SCT-013"
-        description="Supervisión del concentrador ESP32-LP-01, los cuatro sensores de corriente no invasivos y las tramas JSON recibidas por el endpoint de telemetría."
+        eyebrow="Equipos · Sensores"
+        title="Sensores y equipos de medición"
+        description="Estado del equipo central ESP32-LP-01, de los cuatro sensores de corriente y de las lecturas recibidas por el sistema."
         icon={<Cpu className="h-5 w-5" />}
         actions={
           <>
             <Badge className={cn("h-8 border px-3", data.online ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" : "border-rose-500/20 bg-rose-500/10 text-rose-600")} dot={data.online ? "bg-emerald-500" : "bg-rose-500"}>
-              {data.online ? "Concentrador en línea" : "Concentrador sin conexión"}
+              {data.online ? "Equipo central en línea" : "Equipo central sin conexión"}
             </Badge>
             <Button variant="secondary" size="sm" onClick={sendTest} loading={sending}>
-              {!sending ? <Send className="h-3.5 w-3.5" /> : null} Enviar trama
+              {!sending ? <Send className="h-3.5 w-3.5" /> : null} Enviar lectura
             </Button>
             <Button size="sm" onClick={() => setFirmwareOpen(true)}>
-              <FileCode2 className="h-3.5 w-3.5" /> Ver firmware C++
+              <FileCode2 className="h-3.5 w-3.5" /> Ver código del firmware
             </Button>
           </>
         }
@@ -154,7 +154,7 @@ export default function IotDevicesPage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Concentrador principal</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Equipo central</p>
               <h2 className="mt-1 text-xl font-bold tracking-tight text-white">{data.deviceId}</h2>
               <p className="mt-1 text-[11px] text-slate-400">ESP32 DevKit V1 · Firmware {data.firmwareVersion} · 4 canales ADC</p>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -162,7 +162,7 @@ export default function IotDevicesPage() {
                   {onlineSensors}/4 sensores activos
                 </Badge>
                 <Badge className={cn("border", running ? "border-brand-500/20 bg-brand-500/10 text-brand-300" : "border-white/10 bg-white/5 text-slate-300")} dot={running ? "bg-brand-400 animate-pulse" : "bg-slate-500"}>
-                  {running ? "Simulación cada 3 s" : "Sin simulación"}
+                  {running ? "Simulación cada 3 segundos" : "Sin simulación"}
                 </Badge>
               </div>
             </div>
@@ -172,8 +172,8 @@ export default function IotDevicesPage() {
             {[
               { label: "Wi-Fi", value: `${data.zones[0]?.wifiRssi ?? -58} dBm`, hint: "Señal estable", icon: Wifi },
               { label: "Uptime", value: data.uptimeLabel, hint: "Historial acumulado", icon: Radio },
-              { label: "Tramas", value: data.totalReadings.toLocaleString("es-PE"), hint: "Lecturas registradas", icon: Terminal },
-              { label: "Tramas simuladas", value: sentCount.toLocaleString("es-PE"), hint: "Esta sesión", icon: Zap }
+              { label: "Lecturas", value: data.totalReadings.toLocaleString("es-PE"), hint: "Registros almacenados", icon: Terminal },
+              { label: "Lecturas simuladas", value: sentCount.toLocaleString("es-PE"), hint: "Esta sesión", icon: Zap }
             ].map((item) => (
               <div key={item.label} className="rounded-xl border border-white/[0.07] bg-white/[0.035] p-3.5">
                 <item.icon className="h-3.5 w-3.5 text-brand-400" />
@@ -210,7 +210,7 @@ export default function IotDevicesPage() {
                     </div>
                   </div>
                   <Badge className={zone.online ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "border-slate-200 bg-slate-100 text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400"} dot={zone.online ? "bg-emerald-500" : "bg-slate-400"}>
-                    {zone.online ? "Online" : "Offline"}
+                    {zone.online ? "En línea" : "Sin conexión"}
                   </Badge>
                 </div>
 
@@ -265,8 +265,8 @@ export default function IotDevicesPage() {
       <div className="mt-5 grid gap-5 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2">
           <CardHeader
-            title="Consola JSON en vivo"
-            description="Últimas tramas recibidas por POST /api/iot/telemetry"
+            title="Registro de lecturas"
+            description="Últimas lecturas recibidas por POST /api/iot/telemetry"
             icon={<Terminal className="h-4 w-4" />}
             action={
               <div className="flex items-center gap-2">
@@ -288,7 +288,7 @@ export default function IotDevicesPage() {
               <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
               <span className="ml-2 font-mono text-[9.5px] text-slate-500">enerclass@esp32-lp-01:~$ tail -f telemetry.log</span>
-              <span className="ml-auto hidden font-mono text-[9px] text-slate-600 sm:block">{messages.length} tramas</span>
+              <span className="ml-auto hidden font-mono text-[9px] text-slate-600 sm:block">{messages.length} lecturas</span>
             </div>
             <div ref={consoleRef} className="scrollbar-thin h-[400px] overflow-y-auto p-3 font-mono text-[10.5px] sm:p-4">
               {messages.length ? (
@@ -308,8 +308,8 @@ export default function IotDevicesPage() {
               ) : (
                 <div className="flex h-full flex-col items-center justify-center text-center">
                   <Terminal className="h-8 w-8 text-slate-700" />
-                  <p className="mt-2 text-[11px] text-slate-500">Esperando tramas del concentrador ESP32-LP-01…</p>
-                  <p className="mt-1 text-[9.5px] text-slate-600">Active el simulador IoT en la barra superior para ver telemetría.</p>
+                  <p className="mt-2 text-[11px] text-slate-500">Esperando lecturas del equipo central ESP32-LP-01…</p>
+                  <p className="mt-1 text-[9.5px] text-slate-600">Active el simulador en la barra superior para ver lecturas.</p>
                 </div>
               )}
             </div>
@@ -322,7 +322,7 @@ export default function IotDevicesPage() {
 
         <div className="space-y-5">
           <Card>
-            <CardHeader title="Contrato de la API" description="Endpoint público para el firmware ESP32" icon={<FileCode2 className="h-4 w-4" />} />
+            <CardHeader title="Datos que envía el equipo" description="Formato de envío definido para el firmware" icon={<FileCode2 className="h-4 w-4" />} />
             <div className="p-5">
               <div className="rounded-lg bg-slate-50 p-3 dark:bg-white/[0.03]">
                 <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Método</p>
@@ -354,7 +354,7 @@ export default function IotDevicesPage() {
                 <pre className="scrollbar-thin max-h-40 overflow-auto p-3 font-mono text-[9px] leading-relaxed text-slate-500 dark:text-slate-400">{TELEMETRY_EXAMPLE}</pre>
               </div>
               <Button variant="secondary" size="sm" className="mt-4 w-full" onClick={sendTest} loading={sending}>
-                <Send className="h-3 w-3" /> Enviar trama de prueba
+                <Send className="h-3 w-3" /> Enviar lectura de prueba
               </Button>
             </div>
           </Card>
@@ -381,7 +381,7 @@ export default function IotDevicesPage() {
       <Card className="mt-5 overflow-hidden">
         <CardHeader
           title="Historial de lecturas"
-          description="Telemetría paginada de los 4 tableros · 10 registros por página"
+          description="Lecturas de los cuatro tableros · 10 registros por página"
           icon={<History className="h-4 w-4" />}
           action={
             <div className="flex items-center gap-2">

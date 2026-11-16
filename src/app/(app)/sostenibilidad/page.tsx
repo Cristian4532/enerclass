@@ -40,7 +40,7 @@ export default function SustainabilityPage() {
       <PageHeader
         eyebrow="Impacto ambiental · ODS 7 y ODS 13"
         title="Sostenibilidad e impacto ambiental"
-        description="Traducción del ahorro energético de la I.E. N° 2001 «Leoncio Prado» en emisiones evitadas, árboles equivalentes y eficiencia institucional."
+        description="Emisiones evitadas, equivalencia en árboles y nivel de eficiencia del colegio a partir del ahorro del periodo."
         icon={<Leaf className="h-5 w-5" />}
         actions={
           <>
@@ -80,7 +80,7 @@ export default function SustainabilityPage() {
           value={formatNumber(data.avoidedKwh, 0)}
           unit="kWh"
           icon={<Zap className="h-5 w-5" />}
-          hint={`${formatKwh(data.currentKwh, 0)} consumidos vs. ${formatKwh(data.baselineKwh, 0)} base`}
+          hint={`${formatKwh(data.currentKwh, 0)} consumidos frente a ${formatKwh(data.baselineKwh, 0)} de referencia`}
           accent="amber"
         />
         <StatCard
@@ -143,13 +143,13 @@ export default function SustainabilityPage() {
 
         <Card className="xl:col-span-2">
           <CardHeader
-            title="Energía del periodo: línea base vs. optimizada"
-            description={`Impacto semanal · ${data.periodLabel}`}
+            title="Energía del periodo: sin mejoras y con mejoras"
+            description={`Consumo semanal · ${data.periodLabel}`}
             icon={<Zap className="h-4 w-4" />}
             action={
               <div className="flex items-center gap-3 text-[9.5px] text-slate-400">
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" /> Sin EnerClass</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-brand-500" /> Con EnerClass</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" /> Sin mejoras</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-brand-500" /> Con mejoras</span>
               </div>
             }
           />
@@ -218,7 +218,7 @@ export default function SustainabilityPage() {
               </div>
             </div>
             <p className="mt-3 text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
-              El monitoreo por tableros y la detección de consumos fantasmas contribuyen directamente a la meta de eficiencia energética del ODS 7 en la institución educativa.
+              El seguimiento por tableros y la revisión de consumos fuera de horario aportan a la meta de eficiencia energética del ODS 7 en el colegio.
             </p>
           </div>
         </Card>
@@ -249,7 +249,7 @@ export default function SustainabilityPage() {
               </div>
             </div>
             <p className="mt-3 text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
-              La reducción de kWh evita emisiones del Sistema Eléctrico Interconectado Nacional (SEIN) y posiciona al plantel como referente ambiental de la UGEL 02.
+              La reducción de kWh disminuye las emisiones asociadas al Sistema Eléctrico Interconectado Nacional (SEIN).
             </p>
           </div>
         </Card>

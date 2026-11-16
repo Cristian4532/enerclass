@@ -78,7 +78,7 @@ export async function evaluateAlerts(reading: TelemetryReading, threshold: ZoneT
       type: "FUERA_HORARIO",
       severity: warning ? "ADVERTENCIA" : "INFORMATIVA",
       title: "Consumo fuera del horario escolar",
-      message: `${reading.zoneName} mantiene ${reading.powerKw.toFixed(2)} kW fuera de las 07:30–18:00, superando el umbral nocturno de ${threshold.nightMaxKw} kW. Posible consumo fantasma.`,
+      message: `${reading.zoneName} mantiene ${reading.powerKw.toFixed(2)} kW fuera de las 07:30–18:00, por encima del límite nocturno de ${threshold.nightMaxKw} kW. Posible consumo fuera de horario.`,
       value: Number(reading.powerKw.toFixed(2)),
       threshold: threshold.nightMaxKw
     });

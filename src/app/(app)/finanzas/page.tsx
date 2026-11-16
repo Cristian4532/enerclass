@@ -72,8 +72,8 @@ export default function FinancePage() {
     <div className="animate-fade-up">
       <PageHeader
         eyebrow="Administración · Tesorería"
-        title="Auditoría financiera y facturación en Soles"
-        description="Simulación del recibo eléctrico mensual de la I.E. N° 2001 «Leoncio Prado», comparación con el escenario sin optimización y cálculo de indicadores por estudiante y por aula."
+        title="Costos y facturación del servicio eléctrico"
+        description="Estimación del recibo mensual de la I.E. N° 2001 «Leoncio Prado», comparación con el escenario sin mejoras y cálculo del gasto por estudiante y por aula."
         icon={<Landmark className="h-5 w-5" />}
         actions={
           <>
@@ -92,10 +92,10 @@ export default function FinancePage() {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
-          label="Ahorro mensual optimizado"
+          label="Ahorro mensual estimado"
           value={formatSoles(simulation.saving)}
           icon={<TrendingDown className="h-5 w-5" />}
-          hint={`${formatNumber(simulation.savingPct, 1)}% menos frente al escenario base`}
+          hint={`${formatNumber(simulation.savingPct, 1)}% menos que el escenario sin mejoras`}
           accent="brand"
           footer={<div className="h-1 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10"><div className="h-full w-[82%] rounded-full bg-brand-500" /></div>}
         />
@@ -111,7 +111,7 @@ export default function FinancePage() {
           label="Soles por aula"
           value={formatSoles(simulation.solesPerClassroom)}
           icon={<DoorOpen className="h-5 w-5" />}
-          hint={`${simulation.classrooms} aulas · KPI institucional`}
+          hint={`${simulation.classrooms} aulas · indicador institucional`}
           accent="violet"
         />
         <StatCard
@@ -128,8 +128,8 @@ export default function FinancePage() {
         <div className="space-y-5 xl:col-span-2">
           <div className="grid gap-4 lg:grid-cols-2">
             <InvoiceCard
-              title="Con EnerClass"
-              subtitle="Factura optimizada del periodo"
+              title="Con mejoras"
+              subtitle="Recibo estimado con las mejoras"
               badge="OPTIMIZADO"
               highlighted
               bill={simulation.optimized}
@@ -137,7 +137,7 @@ export default function FinancePage() {
               tariff={simulation.tariff}
             />
             <InvoiceCard
-              title="Sin EnerClass"
+              title="Sin mejoras"
               subtitle="Escenario de referencia"
               badge="LÍNEA BASE"
               bill={simulation.baseline}
@@ -148,13 +148,13 @@ export default function FinancePage() {
 
           <Card>
             <CardHeader
-              title="Gasto histórico vs. gasto optimizado"
+              title="Gasto semanal: sin mejoras y con mejoras"
               description="Comparativo semanal en Soles con IGV incluido"
               icon={<Receipt className="h-4 w-4" />}
               action={
                 <div className="flex items-center gap-3 text-[9.5px] text-slate-400">
-                  <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" /> Sin EnerClass</span>
-                  <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-brand-500" /> Optimizado</span>
+                  <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600" /> Sin mejoras</span>
+                  <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-brand-500" /> Con mejoras</span>
                 </div>
               }
             />
@@ -301,7 +301,7 @@ export default function FinancePage() {
               <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.15em] text-brand-200">Impacto del ahorro</p>
               <p className="mt-1 text-2xl font-bold">{formatSoles(simulation.saving)}<span className="ml-1 text-xs font-medium text-brand-200">/ mes</span></p>
               <p className="mt-1 text-[10.5px] leading-relaxed text-brand-100/80">
-                Recursos liberados equivalentes a {formatNumber(data.kpis.co2Avoided, 1)} kg de CO₂ evitados. Este monto puede destinarse a materiales pedagógicos y mantenimiento.
+                El ahorro equivale a {formatNumber(data.kpis.co2Avoided, 1)} kg de CO₂ evitados. Puede destinarse a materiales pedagógicos y mantenimiento.
               </p>
               <div className="mt-4 flex items-center gap-2 text-[10px] text-brand-100/90">
                 <Zap className="h-3.5 w-3.5" /> {formatKwh(data.base.baselineKwh - data.base.kwh, 0)} de energía evitada al mes
@@ -312,7 +312,7 @@ export default function FinancePage() {
           <Card className="card-pad">
             <div className="flex items-center gap-2">
               <Info className="h-3.5 w-3.5 text-slate-400" />
-              <p className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Nota de auditoría</p>
+              <p className="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Nota sobre el cálculo</p>
             </div>
             <p className="mt-2 text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
               Simulación referencial basada en la estructura tarifaria BT3: energía (S/ {simulation.tariff.toFixed(3)}/kWh), cargo por demanda (S/ {DEMAND_CHARGE.toFixed(2)}/kW) y cargo fijo (S/ {FIXED_CHARGE.toFixed(2)}), más IGV del 18 %. La facturación final depende del pliego tarifario vigente del concesionario.

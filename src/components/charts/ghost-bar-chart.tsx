@@ -25,7 +25,7 @@ export const GhostBarChart = memo(
             <YAxis axisLine={false} tickLine={false} tick={{ fill: "currentColor", fontSize: 10 }} tickFormatter={(value) => `${value}`} width={44} />
             <Tooltip content={<EnergyTooltip unit="kWh" />} cursor={{ fill: "rgba(148,163,184,0.08)" }} />
             <Bar dataKey="lectivoKwh" name="Consumo lectivo" fill="#10b981" radius={[5, 5, 0, 0]} maxBarSize={34} isAnimationActive={false} />
-            <Bar dataKey="fantasmaKwh" name="Consumo fantasma" fill="#fb7185" radius={[5, 5, 0, 0]} maxBarSize={34} isAnimationActive={false} />
+            <Bar dataKey="fantasmaKwh" name="Fuera de horario" fill="#fb7185" radius={[5, 5, 0, 0]} maxBarSize={34} isAnimationActive={false} />
           </BarChart>
         </ResponsiveContainer>
       </div>
