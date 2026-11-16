@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String
+  position     String
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Zone {
+  id            String         @id
+  code          String         @unique
+  name          String
+  shortName     String
+  description   String
+  color         String
+  icon          String
+  deviceId      String         @default("ESP32-LP-01")
+  sensorModel   String         @default("SCT-013-000 100A/50mA")
+  calibration   Float          @default(1.0)
+  offsetVoltage Float          @default(1.65)
+  wifiRssi      Int            @default(-58)
+  online        Boolean        @default(true)
+  lastSync      DateTime       @default(now())
+  readings      Reading[]
+  alerts        Alert[]
+  threshold     Threshold?
+  ghostFindings GhostFinding[]
+}
+
+model Reading {
+  id            Int      @id @default(autoincrement())
+  zoneId        String
+  zone          Zone     @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  deviceId      String
+  currentAmps   Float
+  voltageVolts  Float
+  powerKw       Float
+  powerFactor   Float
+  tariffSoles   Float
+  energyKwh     Float    @default(0)
+  costSoles     Float    @default(0)
+  source        String   @default("seed")
+  isSchoolHours Boolean  @default(false)
+  recordedAt    DateTime @default(now())
+
+  @@index([zoneId, recordedAt])
+  @@index([recordedAt])
+  @@index([source, recordedAt])
+  @@index([source, isSchoolHours, recordedAt])
+  @@index([zoneId, isSchoolHours, recordedAt])
+}
+
+model Alert {
+  id         String    @id @default(cuid())
+  zoneId     String?
+  zone       Zone?     @relation(fields: [zoneId], references: [id], onDelete: SetNull)
+  type       String
+  severity   String
+  title      String
+  message    String
+  value      Float?
+  threshold  Float?
+  status     String    @default("PENDIENTE")
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+  resolvedBy String?
+
+  @@index([createdAt])
+  @@index([status])
+  @@index([status, createdAt])
+  @@index([zoneId, createdAt])
+}
+
+model Threshold {
+  id         String   @id @default(cuid())
+  zoneId     String   @unique
+  zone       Zone     @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  maxAmps    Float
+  minVoltage Float
+  maxVoltage Float
+  nightMaxKw Float
+  updatedAt  DateTime @updatedAt
+}
+
+model GhostFinding {
+  id           String    @id @default(cuid())
+  zoneId       String
+  zone         Zone      @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  equipment    String
+  description  String
+  residualAmps Float
+  wastedKwh    Float
+  lossSoles    Float
+  status       String    @default("PENDIENTE")
+  detectedAt   DateTime  @default(now())
+  inspectedAt  DateTime?
+  inspector    String?
+
+  @@index([zoneId, detectedAt])
+  @@index([status, detectedAt])
+  @@index([detectedAt])
+}
+
+model Setting {
+  key   String @id
+  value String
+}
