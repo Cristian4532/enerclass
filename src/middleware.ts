@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const SESSION_COOKIE = "enerclass_session";
-const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/auth/logout", "/api/iot/telemetry", "/api/system/network-info", "/api/system/diagnostics"];
+const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/auth/logout", "/api/iot/telemetry", "/api/system/network-info"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
