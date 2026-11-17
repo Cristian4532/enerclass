@@ -128,10 +128,17 @@ El firmware completo de referencia se puede consultar y descargar desde **Sensor
 | `npm run db:push` | Sincroniza el esquema Prisma con SQLite |
 | `npm run db:seed` | Regenera los 30 días de datos de demostración |
 | `npm run db:studio` | Abre Prisma Studio |
+| `npm run db:generate:postgres` | Genera el cliente para el esquema PostgreSQL |
+| `npm run db:push:postgres` | Crea las tablas en Neon PostgreSQL |
+| `npm run db:seed:postgres` | Siembra los datos demo en Neon |
+
+La compilación (`npm run build`) detecta si corre en Vercel: allí usa
+`prisma/schema.postgres.prisma`; en la laptop usa `prisma/schema.prisma` (SQLite).
+Los detalles están en `GUIA_DESPLIEGUE.md`.
 
 ## Tecnologías
 
-Next.js 14 (App Router) · TypeScript · Tailwind CSS · Lucide React · Recharts · Prisma 5 + SQLite · jsPDF + jspdf-autotable · bcryptjs · Zod · Sonner.
+Next.js 14 (App Router) · TypeScript · Tailwind CSS · Lucide React · Recharts · Prisma 5 (SQLite local / PostgreSQL en Vercel) · jsPDF + jspdf-autotable · bcryptjs · Zod · Sonner.
 
 ## Seguridad y alcance
 

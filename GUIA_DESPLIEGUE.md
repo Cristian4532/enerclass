@@ -17,23 +17,41 @@
 ### Paso 2 — Cree la base gratuita en Neon
 
 1. Regístrese en [neon.tech](https://neon.tech) y cree un proyecto (plan gratuito).
-2. Copie la cadena **Pooled connection string**, por ejemplo:
-   `postgresql://usuario:clave@ep-xxx-pooler.us-east-2.aws.neon.tech/enerclass?sslmode=require`
-3. En el proyecto local, cambie el proveedor de Prisma a PostgreSQL:
+2. Copie dos cadenas desde **Connect**:
+   - **Pooled connection string**: se usa en Vercel para la aplicación.
+   - **Direct connection string**: se usa una sola vez para crear las tablas.
+3. El proyecto ya trae dos esquemas:
+   - `prisma/schema.prisma`: SQLite, para el sistema instalado en el colegio.
+   - `prisma/schema.postgres.prisma`: PostgreSQL, para Vercel.
 
-```prisma
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-```
+   No cambie el proveedor del esquema local: dejaría sin base de datos a la
+   versión que funciona sin internet en las laptops.
 
-4. Con esa URL en su `.env` local, cree las tablas una sola vez:
+4. Con la cadena **directa** en `DATABASE_URL`, cree las tablas y siembre los
+   datos una sola vez:
 
 ```bat
-npx prisma generate
-npx prisma db push
+set DATABASE_URL=postgresql://usuario:clave@ep-xxx.us-east-2.aws.neon.tech/neondb?sslmode=require
+npm run db:generate:postgres
+npm run db:push:postgres
+npm run db:seed:postgres
 ```
+
+En PowerShell:
+
+```powershell
+$env:DATABASE_URL="postgresql://usuario:clave@ep-xxx.us-east-2.aws.neon.tech/neondb?sslmode=require"
+npm run db:generate:postgres
+npm run db:push:postgres
+npm run db:seed:postgres
+```
+
+> Si aparece `P1001: Can't reach database server` en una red que solo tiene
+> IPv4, agregue `&hostaddr=<IPv4 que resuelve el servidor Neon>` al final de la
+> cadena. Así Prisma usa IPv4 y conserva el nombre del host para TLS.
+
+Después de sembrar, la compilación local (`npm run build`) vuelve a generar el
+cliente SQLite automáticamente.
 
 ### Paso 3 — Configure las variables en Vercel
 
@@ -41,20 +59,23 @@ En **Project → Settings → Environment Variables** agregue:
 
 | Variable | Valor |
 | --- | --- |
-| `DATABASE_URL` | Cadena pooled de Neon |
+| `DATABASE_URL` | Cadena **pooled** de Neon, terminada en `?sslmode=require&pgbouncer=true&connect_timeout=15` |
 | `AUTH_SECRET` | Secreto aleatorio de 32+ caracteres |
 | `IOT_API_KEY` | Clave para el ESP32 (ej. `LP-2001-iot-2026`) |
 | `NODE_VERSION` | `22` |
 
 Opcional: `TZ=America/Lima`.
 
+> Quite `channel_binding=require` de la cadena de Neon: Prisma no lo necesita y
+> puede impedir la conexión. No pegue la cadena directa en Vercel.
+
 ### Paso 4 — Despliegue y conecte el ESP32
 
-1. Ejecute **Deploy**. Vercel compilará con `npm run build`.
-2. Abra la URL `https://su-proyecto.vercel.app`. En el primer arranque,
-   `src/lib/autoSeed.ts` detecta la base vacía y crea usuarios, zonas, umbrales,
-   sensores y 30 días de historial automáticamente.
-3. Ingrese con las credenciales demo y cambie las contraseñas en producción.
+1. Ejecute **Deploy**. Vercel detecta `VERCEL=1` y `scripts/build.mjs` genera el
+   cliente Prisma con `prisma/schema.postgres.prisma` antes de compilar.
+2. Abra la URL `https://su-proyecto.vercel.app` e ingrese con las credenciales
+   demo. La base ya está sembrada desde el Paso 2.
+3. Cambie las contraseñas demo desde **Usuarios**.
 4. En el firmware ESP32 apunte `API_HOST` al dominio de Vercel y envíe la cabecera
    `x-api-key: <IOT_API_KEY>` en cada `POST /api/iot/telemetry`.
 

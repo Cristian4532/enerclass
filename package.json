@@ -5,12 +5,16 @@
   "description": "EnerClass — Monitoreo inteligente del consumo eléctrico de la I.E. N° 2001 Leoncio Prado (Rímac, Lima)",
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
-    "build": "next build",
+    "build": "node scripts/build.mjs",
     "start": "next start -H 0.0.0.0 -p 3000",
     "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
+    "db:push:postgres": "prisma db push --schema prisma/schema.postgres.prisma",
+    "db:seed:postgres": "prisma db seed --schema prisma/schema.postgres.prisma",
+    "db:generate:postgres": "prisma generate --schema prisma/schema.postgres.prisma",
     "setup": "prisma generate && prisma db push && prisma db seed"
   },
   "dependencies": {
